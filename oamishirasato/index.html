@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>問い合わせフォーム｜たすかるエアコンお掃除専門店 大網白里店</title>
+<meta name="description" content="たすかるエアコンお掃除専門店のお申込みフォームです。">
+<style>
+  :root{
+    --brand:#00a5d4; --brand-dark:#0087b1; --bg:#e7f5fe; --ink:#313131;
+    --line:#d7e6ee; --req:#e53935; --btn:#ffc400; --btn-ink:#4a3800;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Noto Sans JP",sans-serif;background:var(--bg);color:var(--ink);line-height:1.7}
+  .wrap{max-width:680px;margin:0 auto;padding:24px 14px 40px}
+  .card{background:#fff;border-radius:12px;box-shadow:0 2px 10px rgba(0,80,110,.08);overflow:hidden}
+  .banner{background:var(--brand);color:#fff;text-align:center;padding:20px 12px}
+  .banner h1{margin:0;font-size:24px;letter-spacing:.06em}
+  .banner p{margin:4px 0 0;font-size:13px;opacity:.95}
+  .body{padding:22px 20px 26px}
+  .intro{font-size:14px;margin:0 0 18px}
+  .field{margin:0 0 20px}
+  .label{display:block;font-weight:700;font-size:15px;margin:0 0 7px}
+  .req{display:inline-block;background:var(--req);color:#fff;font-size:11px;font-weight:700;border-radius:4px;padding:1px 7px;margin-left:8px;vertical-align:2px}
+  .opt{display:inline-block;background:#9db8c4;color:#fff;font-size:11px;font-weight:700;border-radius:4px;padding:1px 7px;margin-left:8px;vertical-align:2px}
+  .note{font-size:12.5px;color:#5a6d75;margin:6px 0 0}
+  input[type=text],input[type=email],input[type=tel],input[type=date],select,textarea{
+    width:100%;font-size:16px;padding:11px 12px;border:1px solid var(--line);border-radius:8px;background:#fbfdfe;color:var(--ink);appearance:none;-webkit-appearance:none}
+  select{background-image:url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%2300a5d4' stroke-width='2'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center}
+  textarea{min-height:88px;resize:vertical}
+  input:focus,select:focus,textarea:focus{outline:2px solid var(--brand);outline-offset:0;background:#fff}
+  .choices{display:flex;flex-wrap:wrap;gap:8px 18px}
+  .choices label{display:inline-flex;align-items:center;gap:6px;font-size:15px;cursor:pointer}
+  .choices input{width:19px;height:19px;accent-color:var(--brand)}
+  .checkline{display:flex;align-items:flex-start;gap:8px;font-size:14.5px;cursor:pointer}
+  .checkline input{width:19px;height:19px;accent-color:var(--brand);margin-top:3px;flex:none}
+  .terms{font-size:12.5px;color:#5a6d75;text-align:center;margin:22px 0 14px}
+  .submit{width:100%;border:none;border-radius:10px;background:var(--btn);color:var(--btn-ink);font-size:19px;font-weight:800;letter-spacing:.12em;padding:15px 0;cursor:pointer;box-shadow:0 3px 0 #d9a400}
+  .submit:active{transform:translateY(2px);box-shadow:none}
+  .submit:disabled{opacity:.55;cursor:wait}
+  .err{display:none;background:#fdecec;border:1px solid #f3b3b3;color:#a3271f;border-radius:8px;padding:10px 12px;font-size:13.5px;margin:0 0 16px}
+  footer{text-align:center;font-size:12px;color:#6b828c;padding:16px 0 4px}
+  .thanks{display:none;text-align:center;padding:34px 22px 40px}
+  .thanks .big{font-size:21px;font-weight:800;color:var(--brand-dark);margin:0 0 12px}
+  .thanks p{font-size:14.5px;margin:0 0 8px}
+  .tel{text-align:center;font-size:13.5px;margin:16px 0 0;color:#456}
+  .tel a{color:var(--brand-dark);font-weight:700;text-decoration:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="card">
+    <div class="banner">
+      <h1>お申込みフォーム</h1>
+      <p>たすかるエアコンお掃除専門店 大網白里店</p>
+    </div>
+
+    <div class="body" id="formArea">
+      <p class="intro">たすかるエアコンお掃除専門店 大網白里店 お申込みフォーム<br>下記の項目にご記入いただき、送信ボタンを押してください。メールが届いてから3営業日以内に、担当者よりご連絡させていただきます。</p>
+      <div class="err" id="errBox"></div>
+
+      <form id="inquiryForm" novalidate>
+        <div class="field">
+          <label class="label" for="f_name">お名前<span class="req">必須</span></label>
+          <input type="text" id="f_name" name="お名前" placeholder="山田太郎" required>
+        </div>
+
+        <div class="field">
+          <label class="label" for="f_kana">フリガナ<span class="req">必須</span></label>
+          <input type="text" id="f_kana" name="フリガナ" placeholder="ヤマダタロウ" required>
+        </div>
+
+        <div class="field">
+          <label class="label" for="f_zip">郵便番号<span class="req">必須</span></label>
+          <input type="text" id="f_zip" name="郵便番号" placeholder="123-4567" inputmode="numeric" required>
+        </div>
+
+        <div class="field">
+          <label class="label" for="f_addr">住所<span class="req">必須</span></label>
+          <input type="text" id="f_addr" name="住所" required>
+        </div>
+
+        <div class="field">
+          <label class="label" for="f_tel">お電話番号<span class="req">必須</span></label>
+          <input type="tel" id="f_tel" name="お電話番号" inputmode="tel" required>
+        </div>
+
+        <div class="field">
+          <label class="label" for="f_mail">メールアドレス<span class="req">必須</span></label>
+          <input type="email" id="f_mail" name="メールアドレス" inputmode="email" required>
+        </div>
+
+        <div class="field">
+          <label class="checkline"><input type="checkbox" id="f_news" name="お知らせ配信に登録する" value="登録する" checked><span>送信したメールアドレスでお知らせ配信に登録する</span></label>
+        </div>
+
+        <div class="field">
+          <label class="label" for="f_d1">作業日 第一希望<span class="req">必須</span></label>
+          <input type="date" id="f_d1" name="作業日 第一希望" required>
+        </div>
+        <div class="field">
+          <span class="label">作業日 第一希望の希望時間<span class="req">必須</span></span>
+          <div class="choices" data-group="作業日 第一希望の希望時間" data-required="1">
+            <label><input type="checkbox" value="9時〜12時">9時〜12時</label>
+            <label><input type="checkbox" value="12時〜15時">12時〜15時</label>
+            <label><input type="checkbox" value="15時〜18時">15時〜18時</label>
+            <label><input type="checkbox" value="上記以外で相談したい">上記以外で相談したい</label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label" for="f_d2">作業日 第二希望<span class="req">必須</span></label>
+          <input type="date" id="f_d2" name="作業日 第二希望" required>
+        </div>
+        <div class="field">
+          <span class="label">作業日 第二希望の希望時間<span class="req">必須</span></span>
+          <div class="choices" data-group="作業日 第二希望の希望時間" data-required="1">
+            <label><input type="checkbox" value="9時〜12時">9時〜12時</label>
+            <label><input type="checkbox" value="12時〜15時">12時〜15時</label>
+            <label><input type="checkbox" value="15時〜18時">15時〜18時</label>
+            <label><input type="checkbox" value="上記以外で相談したい">上記以外で相談したい</label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label" for="f_d3">作業日 第三希望<span class="req">必須</span></label>
+          <input type="date" id="f_d3" name="作業日 第三希望" required>
+        </div>
+        <div class="field">
+          <span class="label">作業日 第三希望の希望時間<span class="req">必須</span></span>
+          <div class="choices" data-group="作業日 第三希望の希望時間" data-required="1">
+            <label><input type="checkbox" value="9時〜12時">9時〜12時</label>
+            <label><input type="checkbox" value="12時〜15時">12時〜15時</label>
+            <label><input type="checkbox" value="15時〜18時">15時〜18時</label>
+            <label><input type="checkbox" value="上記以外で相談したい">上記以外で相談したい</label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label" for="f_normal">通常タイプエアコン<span class="req">必須</span></label>
+          <select id="f_normal" name="通常タイプエアコン" required></select>
+        </div>
+
+        <div class="field">
+          <label class="label" for="f_auto">お掃除機能付きエアコン<span class="req">必須</span></label>
+          <select id="f_auto" name="お掃除機能付きエアコン" required></select>
+        </div>
+
+        <div class="field">
+          <label class="label" for="f_model">エアコンのメーカー名と型式番号<span class="opt">任意</span></label>
+          <input type="text" id="f_model" name="エアコンのメーカー名と型式番号">
+          <p class="note">ご回答頂けますと予約の確定がスムーズに行うことができます。</p>
+        </div>
+
+        <div class="field">
+          <label class="label" for="f_coat">防カビ・抗菌コート<span class="req">必須</span></label>
+          <select id="f_coat" name="防カビ・抗菌コート" required></select>
+        </div>
+
+        <div class="field">
+          <label class="label" for="f_out">室外機清掃<span class="req">必須</span></label>
+          <select id="f_out" name="室外機清掃" required></select>
+        </div>
+
+        <div class="field">
+          <label class="label" for="f_drain">ドレンホース洗浄<span class="req">必須</span></label>
+          <select id="f_drain" name="ドレンホース洗浄" required></select>
+        </div>
+
+        <div class="field">
+          <label class="label" for="f_set1">おまとめセット（室外機清掃+防カビ・抗菌コート）<span class="req">必須</span></label>
+          <select id="f_set1" name="おまとめセット（室外機清掃+防カビ・抗菌コート）" required></select>
+        </div>
+
+        <div class="field">
+          <label class="label" for="f_set2">まるごとセット（室外機清掃+防カビ・抗菌コート+ドレンホース清掃）<span class="req">必須</span></label>
+          <select id="f_set2" name="まるごとセット（室外機清掃+防カビ・抗菌コート+ドレンホース清掃）" required></select>
+        </div>
+
+        <div class="field">
+          <span class="label">駐車場の有無をお選びください<span class="req">必須</span></span>
+          <div class="choices">
+            <label><input type="radio" name="駐車場の有無" value="あり" required>あり</label>
+            <label><input type="radio" name="駐車場の有無" value="なし">なし</label>
+          </div>
+        </div>
+
+        <div class="field">
+          <span class="label">ペットの有無<span class="req">必須</span></span>
+          <div class="choices">
+            <label><input type="radio" name="ペットの有無" value="あり" required>あり</label>
+            <label><input type="radio" name="ペットの有無" value="なし">なし</label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label" for="f_pets">ペットの飼育匹数<span class="opt">任意</span></label>
+          <input type="text" id="f_pets" name="ペットの飼育匹数" placeholder="ペット有りとご回答された方はご記入ください。例）犬1匹、猫2匹">
+        </div>
+
+        <div class="field">
+          <span class="label">支払方法をお選びください<span class="req">必須</span></span>
+          <div class="choices">
+            <label><input type="radio" name="支払方法" value="現金" required>現金</label>
+            <label><input type="radio" name="支払方法" value="クレジットカード">クレジットカード</label>
+            <label><input type="radio" name="支払方法" value="PayPay">PayPay</label>
+          </div>
+        </div>
+
+        <div class="field">
+          <span class="label">当店のご利用は何回目ですか？<span class="req">必須</span></span>
+          <div class="choices">
+            <label><input type="radio" name="当店のご利用回数" value="はじめて" required>はじめて</label>
+            <label><input type="radio" name="当店のご利用回数" value="２回目以上">２回目以上</label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label" for="f_coupon">クーポンコードをご利用の場合はご入力ください<span class="opt">任意</span></label>
+          <input type="text" id="f_coupon" name="クーポンコード">
+        </div>
+
+        <div class="field">
+          <label class="label" for="f_msg">ご不明な点、特に汚れが気になる箇所等ございましたら、こちらへご記入ください<span class="opt">任意</span></label>
+          <textarea id="f_msg" name="ご不明な点・気になる箇所など"></textarea>
+        </div>
+
+                <div class="field">
+          <span class="label">ご利用にあたっての確認<span class="req">必須</span></span>
+          <label class="checkline"><input type="checkbox" id="f_consent" required><span><a href="https://tasukarutaoka-cpu.github.io/tasukaru-lp/legal/#section-99" target="_blank" rel="noopener">サービス利用規約</a>・<a href="https://tasukarutaoka-cpu.github.io/tasukaru-lp/legal/#section-59" target="_blank" rel="noopener">注意事項</a>および<a href="https://tasukarutaoka-cpu.github.io/tasukaru-lp/legal/#section-146" target="_blank" rel="noopener">プライバシーポリシー</a>を確認し、内容に同意します。</span></label>
+        </div>
+
+        <p class="terms">利用規約・注意事項およびプライバシーポリシーをお読みの上、同意して送信して下さい。</p>
+        <button type="submit" class="submit" id="submitBtn">送信</button>
+      </form>
+    </div>
+
+    <div class="thanks" id="thanksArea">
+      <p class="big">送信が完了しました</p>
+      <p>お申込みありがとうございます。</p>
+      <p>メールが届いてから3営業日以内に、担当者よりご連絡させていただきます。</p>
+      <p>しばらくお待ちくださいますようお願いいたします。</p>
+    </div>
+  </div>
+  <footer>Copyright © <span id="year"></span> tasukaru</footer>
+</div>
+<script>
+(function(){
+document.getElementById('year').textContent = new Date().getFullYear();
+
+// プルダウンの選択肢を生成（なし＋1〜10、単位つき）
+function fill(id, unit){
+var sel = document.getElementById(id);
+var o = document.createElement('option'); o.value = 'なし'; o.textContent = 'なし'; sel.appendChild(o);
+for (var i = 1; i <= 10; i++){
+var op = document.createElement('option');
+op.value = i + unit; op.textContent = i + unit; sel.appendChild(op);
+}
+}
+fill('f_normal','台'); fill('f_auto','台'); fill('f_coat','台'); fill('f_out','台');
+fill('f_drain','本'); fill('f_set1','セット'); fill('f_set2','セット');
+
+var ENDPOINT = 'https://formsubmit.co/ajax/8f4a3db4221a2bf50d449e491645cd9e';
+var form = document.getElementById('inquiryForm');
+var errBox = document.getElementById('errBox');
+var btn = document.getElementById('submitBtn');
+
+function showErr(msg){
+errBox.textContent = msg; errBox.style.display = 'block';
+errBox.scrollIntoView({behavior:'smooth', block:'center'});
+}
+
+form.addEventListener('submit', function(ev){
+ev.preventDefault();
+errBox.style.display = 'none';
+
+// 必須テキスト等の簡易チェック（ブラウザ標準の検証メッセージの代わり）
+var missing = [];
+form.querySelectorAll('[required]').forEach(function(el){
+if (el.type === 'radio'){
+if (!form.querySelector('input[name="' + el.name + '"]:checked')) {
+if (missing.indexOf(el.name) === -1) missing.push(el.name);
+}
+} else if (!el.value ||!el.value.trim()){
+var lab = form.querySelector('label[for="' + el.id + '"]');
+missing.push(lab? lab.textContent.replace('必須','').replace('任意','').trim(): el.name);
+}
+});
+// 希望時間のチェックボックス群（各1つ以上必須）
+var groups = form.querySelectorAll('.choices[data-group]');
+groups.forEach(function(g){
+if (g.getAttribute('data-required') !== '1') return;
+var any = g.querySelectorAll('input[type=checkbox]:checked').length > 0;
+if (!any) missing.push(g.getAttribute('data-group'));
+});
+var consentEl = document.getElementById('f_consent');
+if (consentEl && !consentEl.checked) missing.push('ご利用にあたっての確認');
+if (missing.length){
+showErr('未入力の必須項目があります：' + missing.join('、'));
+return;
+}
+var mail = document.getElementById('f_mail').value.trim();
+if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(mail)){
+showErr('メールアドレスの形式をご確認ください。');
+return;
+}
+
+// 送信データ（項目名はそのままメール本文の見出しになります）
+var data = {};
+data['_subject'] = 'エアコンクリーニング申込フォーム（大網白里店・お申込み）';
+data['_template'] = 'table';
+data['_captcha'] = 'false';
+data['_replyto'] = mail;
+data['_cc'] = 'tasukaru.yasui@gmail.com,maimai.2001.1.7@gmail.com,benriya.tasukaru@gmail.com';
+['お名前','フリガナ','郵便番号','住所','お電話番号','メールアドレス'].forEach(function(n){
+data[n] = form.querySelector('[name="' + n + '"]').value.trim();
+});
+data['お知らせ配信に登録する'] = document.getElementById('f_news').checked? '登録する': '登録しない';
+var consentEl2 = document.getElementById('f_consent');
+data['ご利用にあたっての確認'] = consentEl2 && consentEl2.checked? '同意します': '';
+['作業日 第一希望','作業日 第二希望','作業日 第三希望'].forEach(function(n){
+data[n] = form.querySelector('[name="' + n + '"]').value;
+});
+groups.forEach(function(g){
+var vals = [];
+g.querySelectorAll('input[type=checkbox]:checked').forEach(function(c){ vals.push(c.value);});
+data[g.getAttribute('data-group')] = vals.join('、');
+});
+['通常タイプエアコン','お掃除機能付きエアコン','エアコンのメーカー名と型式番号','防カビ・抗菌コート','室外機清掃','ドレンホース洗浄',
+'おまとめセット（室外機清掃+防カビ・抗菌コート）','まるごとセット（室外機清掃+防カビ・抗菌コート+ドレンホース清掃）',
+'ペットの飼育匹数','クーポンコード','ご不明な点・気になる箇所など'].forEach(function(n){
+var el = form.querySelector('[name="' + n + '"]');
+data[n] = el? (el.value || '').trim(): '';
+});
+['駐車場の有無','ペットの有無','支払方法','当店のご利用回数'].forEach(function(n){
+var el = form.querySelector('input[name="' + n + '"]:checked');
+data[n === '当店のご利用回数'? '当店のご利用は何回目ですか？': n] = el? el.value: '';
+});
+
+btn.disabled = true; btn.textContent = '送信中…';
+fetch(ENDPOINT, { method:'POST', headers:{'Content-Type':'application/json','Accept':'application/json'}, body: JSON.stringify(data)})
+.then(function(r){ return r.json();})
+.then(function(j){
+if (j && (j.success === true || j.success === 'true')){
+document.getElementById('formArea').style.display = 'none';
+var t = document.getElementById('thanksArea'); t.style.display = 'block';
+window.scrollTo({top:0, behavior:'smooth'});
+} else {
+btn.disabled = false; btn.textContent = '送信';
+showErr('送信に失敗しました。お手数ですが、お電話（090-3839-7267）でご連絡ください。');
+}
+})
+.catch(function(){
+btn.disabled = false; btn.textContent = '送信';
+showErr('送信に失敗しました。通信環境をご確認のうえ、もう一度お試しください。');
+});
+});
+})();
+</script>
+</body>
+</html>
