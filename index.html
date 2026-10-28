@@ -256,7 +256,7 @@ op.value = i + unit; op.textContent = i + unit; sel.appendChild(op);
 fill('f_normal','台'); fill('f_auto','台'); fill('f_coat','台'); fill('f_out','台');
 fill('f_drain','本'); fill('f_set1','セット'); fill('f_set2','セット');
 
-var ACCESS_KEY = '__WEB3FORMS_KEY__';
+var ENDPOINT = 'https://formsubmit.co/ajax/tasukaru.zenkoku@gmail.com';
 var form = document.getElementById('inquiryForm');
 var errBox = document.getElementById('errBox');
 var btn = document.getElementById('submitBtn');
@@ -299,40 +299,39 @@ return;
 }
 
 // 送信データ（項目名はそのままメール本文の見出しになります）
-var data = new FormData();
-data.append('access_key', ACCESS_KEY);
-data.append('subject', 'エアコンクリーニング申込フォーム');
-data.append('from_name', 'たすかるエアコンお掃除専門店 申込フォーム');
-data.append('replyto', mail);
-data.append('botcheck', '');
+var data = {};
+data['_subject'] = 'エアコンクリーニング申込フォーム（お申込み）';
+data['_template'] = 'table';
+data['_captcha'] = 'false';
+data['_replyto'] = mail;
 ['お名前','フリガナ','郵便番号','住所','お電話番号','メールアドレス'].forEach(function(n){
-data.append(n, form.querySelector('[name="' + n + '"]').value.trim());
+data[n] = form.querySelector('[name="' + n + '"]').value.trim();
 });
-data.append('お知らせ配信に登録する', document.getElementById('f_news').checked? '登録する': '登録しない');
+data['お知らせ配信に登録する'] = document.getElementById('f_news').checked? '登録する': '登録しない';
 ['作業日 第一希望','作業日 第二希望','作業日 第三希望'].forEach(function(n){
-data.append(n, form.querySelector('[name="' + n + '"]').value);
+data[n] = form.querySelector('[name="' + n + '"]').value;
 });
 groups.forEach(function(g){
 var vals = [];
 g.querySelectorAll('input[type=checkbox]:checked').forEach(function(c){ vals.push(c.value);});
-data.append(g.getAttribute('data-group'), vals.join('、'));
+data[g.getAttribute('data-group')] = vals.join('、');
 });
 ['通常タイプエアコン','お掃除機能付きエアコン','エアコンのメーカー名と型式番号','防カビ・抗菌コート','室外機清掃','ドレンホース洗浄',
 'おまとめセット（室外機清掃+防カビ・抗菌コート）','まるごとセット（室外機清掃+防カビ・抗菌コート+ドレンホース清掃）',
 'ペットの飼育匹数','クーポンコード','ご不明な点・気になる箇所など'].forEach(function(n){
 var el = form.querySelector('[name="' + n + '"]');
-data.append(n, el? (el.value || '').trim(): '');
+data[n] = el? (el.value || '').trim(): '';
 });
 ['駐車場の有無','ペットの有無','支払方法','当店のご利用回数'].forEach(function(n){
 var el = form.querySelector('input[name="' + n + '"]:checked');
-data.append(n === '当店のご利用回数'? '当店のご利用は何回目ですか？': n, el? el.value: '');
+data[n === '当店のご利用回数'? '当店のご利用は何回目ですか？': n] = el? el.value: '';
 });
 
 btn.disabled = true; btn.textContent = '送信中…';
-fetch('https://api.web3forms.com/submit', { method:'POST', body: data})
+fetch(ENDPOINT, { method:'POST', headers:{'Content-Type':'application/json','Accept':'application/json'}, body: JSON.stringify(data)})
 .then(function(r){ return r.json();})
 .then(function(j){
-if (j && j.success){
+if (j && (j.success === true || j.success === 'true')){
 document.getElementById('formArea').style.display = 'none';
 var t = document.getElementById('thanksArea'); t.style.display = 'block';
 window.scrollTo({top:0, behavior:'smooth'});
